@@ -89,9 +89,15 @@ public:
     //! \param name The name of the functor.
     //! \param func The functor to bind.
     //! \tparam F The type of the functor.
+    #if defined(_WIN32)
+    template <typename F> void bind(std::string const &name, F func) {
+        disp_->bind(name, func);
+    }
+    #else
     template <typename F> EXPORT void bind(std::string const &name, F func) {
         disp_->bind(name, func);
     }
+    #endif
 
     //! \brief Sets the exception behavior in handlers. By default,
     //! handlers throwing will crash the server. If suppressing is on,

@@ -35,7 +35,11 @@ public:
     EXPORT client(std::string const &addr, uint16_t port);
 
     //! \cond DOXYGEN_SKIP
+    #if defined(_WIN32)
+    client(client const &) = delete;
+    #else
     EXPORT client(client const &) = delete;
+    #endif
     //! \endcond
 
     //! \brief Destructor.
@@ -58,7 +62,11 @@ public:
     //!
     //! \throws rpc::rpc_error if the server responds with an error.
     template <typename... Args>
+    #if defined(_WIN32)
+    RPCLIB_MSGPACK::object_handle call(std::string const &func_name, Args... args);
+    #else
     EXPORT RPCLIB_MSGPACK::object_handle call(std::string const &func_name, Args... args);
+    #endif
 
     //! \brief Calls a function asynchronously with the given name and
     //! arguments.
@@ -77,7 +85,11 @@ public:
     //! \returns A std::future, possibly holding a future result
     //! (which is a RPCLIB_MSGPACK::object).
     template <typename... Args>
+    #if defined(_WIN32)
+    std::future<RPCLIB_MSGPACK::object_handle> async_call(std::string const &func_name, Args... args);
+    #else
     EXPORT  std::future<RPCLIB_MSGPACK::object_handle> async_call(std::string const &func_name, Args... args);
+    #endif
 
     //! \brief Sends a notification with the given name and arguments (if any).
     //!
@@ -92,7 +104,11 @@ public:
     //! \note This function returns immediately (possibly before the
     //! notification is written to the socket).
     template <typename... Args>
+    #if defined(_WIN32)
+    void send(std::string const &func_name, Args... args);
+    #else
     EXPORT void send(std::string const &func_name, Args... args);
+    #endif
 
     //! \brief Returns the timeout setting of this client in milliseconds.
     //!
