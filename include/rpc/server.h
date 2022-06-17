@@ -92,6 +92,7 @@ public:
     template <typename F> void bind(std::string const &name, F func) {
         disp_->bind(name, func);
     }
+    #endif
 
     //! \brief Sets the exception behavior in handlers. By default,
     //! handlers throwing will crash the server. If suppressing is on,

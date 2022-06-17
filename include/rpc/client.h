@@ -92,15 +92,14 @@ public:
     //! \note This function returns immediately (possibly before the
     //! notification is written to the socket).
     template <typename... Args>
+<<<<<<< HEAD
     void send(std::string const &func_name, Args... args);
-
-    //! \brief Returns the timeout setting of this client in milliseconds.
-    //!
-    //! The timeout is applied to synchronous calls. If the timeout expires
-    //! without receiving a response from the server, rpc::timeout exception
-    //! will be thrown.
-    //!
-    //! \note The timeout has no effect on async calls. For those,
+=======
+    #if defined(_WIN32)
+    void send(std::string const &func_name, Args... args);
+    #else
+    EXPORT void send(std::string const &func_name, Args... args);
+    #endif
     //! the preferred timeout mechanism remains using std::future.
     //!
     //! The default value for timeout is 5000ms (5 seconds).
