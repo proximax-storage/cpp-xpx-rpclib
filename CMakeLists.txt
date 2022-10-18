@@ -69,6 +69,7 @@ elseif (LINUX)
   set(RPCLIB_OS_DEF "RPCLIB_LINUX")
 elseif (APPLE)
   set(RPCLIB_OS_DEF "RPCLIB_MAC")
+  add_definitions(-w)
 endif()
 
 set(RPCLIB_DEPENDENCIES "${CMAKE_CURRENT_LIST_DIR}/dependencies")
